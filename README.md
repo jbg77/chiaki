@@ -1,33 +1,27 @@
-# Chiaki
+# chiaki
+This fork of Chiaki combines the works of Alvaromunoz, Jbaiters, Egoistically, and Streetpea to deliver an optimized gaming experience. It includes features such as haptic vibrations and adaptive triggers for a more immersive gaming experience, as well as improved colorimetry. Although haptic vibrations only work with USB and may not function, an emulation function for vibrations has been added for use with both USB and Bluetooth. The software is built using QT6.
 
-**Disclaimer:** This project is not endorsed or certified by Sony Interactive Entertainment LLC.
+## Features:
 
-Chiaki is a Free and Open Source Software Client for PlayStation 4 and PlayStation 5 Remote Play
-for Linux, FreeBSD, OpenBSD, Android, macOS, Windows, Nintendo Switch and potentially even more platforms.
+- Adaptive Triggers (Bluetooth and USB)
+- Haptic rumble (only USB, may not work)
+- Emulated haptic rumble (works with USB and Bluetooth)
+- Built with QT6
+- Improved colorimetry.
 
-## About
+## Not Working:
 
-Created by Florian Märkl
+- Controller microphone
+- Controller speaker.
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License version 3
-as published by the Free Software Foundation.
+## Build
+The program has been compiled for Mac (Apple Silicon) and can be built from source using CMake, Qt6, QtOpenGL and QtSvg, FFMPEG (libavcodec with H264 is enough), libopus, OpenSSL 1.1, SDL 2, protoc and the protobuf Python library (only used during compilation for Nanopb). To build the program, follow these instructions:
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
+    bash
+    Copy code
+    git submodule update --init
+    mkdir build && cd build
+    cmake ..
+    make
 
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-Additional permission under GNU AGPL version 3 section 7
-
-If you modify this program, or any covered work, by linking or
-combining it with the OpenSSL project's OpenSSL library (or a
-modified version of that library), containing parts covered by the
-terms of the OpenSSL or SSLeay licenses, the Free Software Foundation
-grants you additional permission to convey the resulting work.
-Corresponding Source for a non-source form of such a combination
-shall include the source code for the parts of OpenSSL used as well
-as that of the covered work.
+Enjoy playing games like Astrobots, now fully playable.
