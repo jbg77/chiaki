@@ -59,7 +59,7 @@ jobs:
       - name: Setup OpenSSL
         run: |
           $ProgressPreference = 'SilentlyContinue'
-          Invoke-WebRequest -UseBasicParsing -Uri "https://mirror.firedaemon.com/OpenSSL/openssl-1.1.1s.zip" -OutFile ".\openssl-1.1.1s.zip"
+          Invoke-WebRequest -UseBasicParsing -Uri "https://www.firedaemon.com/download-firedaemon-openssl-1-zip" -OutFile ".\openssl-1.1.1s.zip"
           Expand-Archive -LiteralPath "openssl-1.1.1s.zip" -DestinationPath "."
           Rename-Item "openssl-1.1" "openssl"
           Write-Output "${{ github.workspace }}\openssl" | Out-File -FilePath $Env:GITHUB_PATH -Encoding utf8 -Append
