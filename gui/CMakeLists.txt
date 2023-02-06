@@ -2,7 +2,7 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-find_package(Qt6 COMPONENTS Core5Compat Core Widgets Gui Concurrent Multimedia OpenGL Svg OpenGLWidgets)
+find_package(Qt6 COMPONENTS Core Widgets Gui Concurrent Multimedia OpenGL Svg OpenGLWidgets)
 
 #if(APPLE)
 #	find_package(Qt6 COMPONENTS MacExtras)
@@ -70,7 +70,7 @@ if(CHIAKI_ENABLE_CLI)
 	target_link_libraries(chiaki chiaki-cli-lib)
 endif()
 
-target_link_libraries(chiaki Qt6::Core5Compat Qt::Core Qt::Widgets Qt::Gui Qt::Concurrent Qt::Multimedia Qt::OpenGL Qt::Svg Qt::OpenGLWidgets)
+target_link_libraries(chiaki Qt::Core Qt::Widgets Qt::Gui Qt::Concurrent Qt::Multimedia Qt::OpenGL Qt::Svg Qt::OpenGLWidgets)
 target_link_libraries(chiaki SDL2::SDL2)
 if(APPLE)
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework CoreVideo")
