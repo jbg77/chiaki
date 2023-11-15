@@ -30,3 +30,5 @@ chiaki.conf
 /appimage
 .cache/
 .vscode/
+/*.app
+/*.dmg
