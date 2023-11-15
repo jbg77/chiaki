@@ -221,7 +221,7 @@ void MainWindow::SendWakeup(const DisplayServer *server)
 		return;
 	}
 
-	QMessageBox::information(this, tr("Wakeup"), tr("Wakeup packet sent."));
+	// QMessageBox::information(this, tr("Wakeup"), tr("Wakeup packet sent."));
 }
 
 void MainWindow::ServerItemWidgetTriggered()
@@ -235,17 +235,17 @@ void MainWindow::ServerItemWidgetTriggered()
 	{
 		if(server.discovered && server.discovery_host.state == CHIAKI_DISCOVERY_HOST_STATE_STANDBY)
 		{
-			int r = QMessageBox::question(this,
-					tr("Start Stream"),
-					tr("The Console is currently in standby mode.\nShould we send a Wakeup packet instead of trying to connect immediately?"),
-					QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
-			if(r == QMessageBox::Yes)
-			{
+			// int r = QMessageBox::question(this,
+			// 		tr("Start Stream"),
+			// 		tr("The Console is currently in standby mode.\nShould we send a Wakeup packet instead of trying to connect immediately?"),
+			// 		QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+			// if(r == QMessageBox::Yes)
+			// {
 				SendWakeup(&server);
 				return;
-			}
-			else if(r == QMessageBox::Cancel)
-				return;
+			// }
+			// else if(r == QMessageBox::Cancel)
+			// 	return;
 		}
 
 		QString host = server.GetHostAddr();
