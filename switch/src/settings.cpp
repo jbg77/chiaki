@@ -257,6 +257,8 @@ std::string Settings::ResolutionPresetToString(ChiakiVideoResolutionPreset resol
 			return "720p";
 		case CHIAKI_VIDEO_RESOLUTION_PRESET_1080p:
 			return "1080p";
+		case CHIAKI_VIDEO_RESOLUTION_PRESET_2160p:
+			return "2160p";
 	}
 	return "UNKNOWN";
 }
@@ -273,13 +275,17 @@ int Settings::ResolutionPresetToInt(ChiakiVideoResolutionPreset resolution)
 			return 720;
 		case CHIAKI_VIDEO_RESOLUTION_PRESET_1080p:
 			return 1080;
+		case CHIAKI_VIDEO_RESOLUTION_PRESET_2160p:
+			return 2160;
 	}
 	return 0;
 }
 
 ChiakiVideoResolutionPreset Settings::StringToResolutionPreset(std::string value)
 {
-	if(value.compare("1080p") == 0)
+	if(value.compare("2160p") == 0)
+		return CHIAKI_VIDEO_RESOLUTION_PRESET_2160p;
+	else if(value.compare("1080p") == 0)
 		return CHIAKI_VIDEO_RESOLUTION_PRESET_1080p;
 	else if(value.compare("720p") == 0)
 		return CHIAKI_VIDEO_RESOLUTION_PRESET_720p;

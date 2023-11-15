@@ -21,6 +21,7 @@
 #include <QtConcurrent>
 #include <QFutureWatcher>
 #include <QMediaDevices>
+#include <QScrollArea>
 
 #include <chiaki/config.h>
 #include <chiaki/ffmpegdecoder.h>
@@ -43,8 +44,19 @@ SettingsDialog::SettingsDialog(Settings *settings, QWidget *parent) : QDialog(pa
 
 	setWindowTitle(tr("Settings"));
 
-	auto root_layout = new QVBoxLayout(this);
-	setLayout(root_layout);
+    auto scrollArea = new QScrollArea(this);
+    auto scrollWidget = new QWidget(this);
+	auto mainLayout = new QVBoxLayout(this);
+	auto root_layout = new QVBoxLayout(scrollWidget);
+
+	scrollArea->setWidgetResizable(true);
+	scrollArea->setWidget(scrollWidget);
+
+    scrollWidget->setLayout(root_layout);
+
+    mainLayout->addWidget(scrollArea);
+
+    setLayout(mainLayout);
 
 	auto horizontal_layout = new QHBoxLayout();
 	root_layout->addLayout(horizontal_layout);
@@ -151,7 +163,8 @@ SettingsDialog::SettingsDialog(Settings *settings, QWidget *parent) : QDialog(pa
 		{ CHIAKI_VIDEO_RESOLUTION_PRESET_360p, "360p" },
 		{ CHIAKI_VIDEO_RESOLUTION_PRESET_540p, "540p" },
 		{ CHIAKI_VIDEO_RESOLUTION_PRESET_720p, "720p" },
-		{ CHIAKI_VIDEO_RESOLUTION_PRESET_1080p, "1080p (PS5 and PS4 Pro only)" }
+		{ CHIAKI_VIDEO_RESOLUTION_PRESET_1080p, "1080p (PS5 and PS4 Pro only)" },
+		{ CHIAKI_VIDEO_RESOLUTION_PRESET_2160p, "2160p (PS5 only)" }
 	};
 	auto current_res = settings->GetResolution();
 	for(const auto &p : resolution_strings)
@@ -189,7 +202,8 @@ SettingsDialog::SettingsDialog(Settings *settings, QWidget *parent) : QDialog(pa
 	codec_combo_box = new QComboBox(this);
 	static const QList<QPair<ChiakiCodec, QString>> codec_strings = {
 		{ CHIAKI_CODEC_H264, "H264" },
-		{ CHIAKI_CODEC_H265, "H265 (PS5 only)" }
+		{ CHIAKI_CODEC_H265, "H265 (PS5 only)" },
+		{ CHIAKI_CODEC_H265_HDR, "H265 HDR (PS5 only)" }
 	};
 	auto current_codec = settings->GetCodec();
 	for(const auto &p : codec_strings)
