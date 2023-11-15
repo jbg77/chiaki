@@ -86,6 +86,42 @@ void main()
 }
 )glsl";
 
+static const char *p010le_shader_frag_glsl = R"glsl(
+#version 330 core
+
+in vec2 uv_var;
+
+out vec4 out_color;
+
+uniform sampler2D tex_y; // Y plane
+uniform sampler2D tex_uv; // interlaced U and V
+
+// Constants for color conversion and adjustment
+uniform vec3 offset = vec3(0.0, 0.0, 0.0);
+uniform mat3 colorConversion = mat3(
+    1.0,     1.0,     1.0,
+    0.0,    -0.21482, 2.12798,
+    1.28033, -0.38059, 0.0);
+
+// Insert functions for adjustBrightness, adjustContrast, adjustSaturation here
+
+void main()
+{
+    vec3 yuv;
+    vec4 color = vec4(0.0, 0.0, 0.0, 1.0);
+
+    yuv.x = texture(tex_y, uv_var).r;
+    yuv.yz = texture(tex_uv, uv_var).rg;
+
+    yuv += offset;
+    color.rgb = yuv * colorConversion;
+
+    // You can add your brightness, contrast, and saturation adjustments here if needed
+
+    out_color = color;
+}
+)glsl";
+
 ConversionConfig conversion_configs[] = {
 	{
 		AV_PIX_FMT_YUV420P,
@@ -107,7 +143,17 @@ ConversionConfig conversion_configs[] = {
 			{ 1, 1, 1, GL_R8, GL_RED },
 			{ 2, 2, 2, GL_RG8, GL_RG }
 		}
-	}
+	},
+ 	{
+        AV_PIX_FMT_P010LE,
+        shader_vert_glsl, // Vertex shader remains the same
+        p010le_shader_frag_glsl, // Modified fragment shader for P010LE
+        2,
+        {
+            { 1, 1, 1, GL_R16, GL_RED }, // 10-bit Y in 16-bit container
+            { 2, 2, 2, GL_RG16, GL_RG } // 10-bit UV in 16-bit container
+        }
+    }
 };
 
 static const float vert_pos[] = {
@@ -221,9 +267,9 @@ bool AVOpenGLFrame::Update(AVFrame *frame, ChiakiLog *log)
 {
 	auto f = QOpenGLContext::currentContext()->extraFunctions();
 
-	if(frame->format != conversion_config->pixel_format)
+    if(frame->format != conversion_config->pixel_format)
 	{
-		CHIAKI_LOGE(log, "AVOpenGLFrame got AVFrame with invalid format");
+		CHIAKI_LOGE(log, "AVOpenGLFrame got AVFrame with invalid format %d", frame->format);
 		return false;
 	}
 

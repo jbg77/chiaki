@@ -10,6 +10,7 @@ static enum AVCodecID chiaki_codec_av_codec_id(ChiakiCodec codec)
 		case CHIAKI_CODEC_H265:
 		case CHIAKI_CODEC_H265_HDR:
 			return AV_CODEC_ID_H265;
+			// return AV_CODEC_ID_HEVC;
 		default:
 			return AV_CODEC_ID_H264;
 	}
@@ -208,9 +209,10 @@ CHIAKI_EXPORT AVFrame *chiaki_ffmpeg_decoder_pull_frame(ChiakiFfmpegDecoder *dec
 
 CHIAKI_EXPORT enum AVPixelFormat chiaki_ffmpeg_decoder_get_pixel_format(ChiakiFfmpegDecoder *decoder)
 {
+	return AV_PIX_FMT_P010LE;
 	// TODO: this is probably very wrong, especially for hdr
-	return decoder->hw_device_ctx
-		? AV_PIX_FMT_NV12
-		: AV_PIX_FMT_YUV420P;
+	// return decoder->hw_device_ctx
+	// 	? AV_PIX_FMT_NV12
+	// 	: AV_PIX_FMT_YUV420P;
 }
 

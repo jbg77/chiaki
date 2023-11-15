@@ -37,6 +37,7 @@ typedef enum ctrl_message_type_t {
 	CTRL_MESSAGE_TYPE_LOGIN_PIN_REP = 0x8004,
 	CTRL_MESSAGE_TYPE_LOGIN = 0x5,
 	CTRL_MESSAGE_TYPE_GOTO_BED = 0x50,
+	CTRL_MESSAGE_TYPE_PS = 0x16,
 	CTRL_MESSAGE_TYPE_KEYBOARD_ENABLE_TOGGLE = 0x20,
 	CTRL_MESSAGE_TYPE_KEYBOARD_OPEN = 0x21,
 	CTRL_MESSAGE_TYPE_KEYBOARD_CLOSE_REMOTE = 0x22,
@@ -479,7 +480,11 @@ static void ctrl_message_received(ChiakiCtrl *ctrl, uint16_t msg_type, uint8_t *
 		case CTRL_MESSAGE_TYPE_KEYBOARD_CLOSE_REMOTE:
 			ctrl_message_received_keyboard_close(ctrl, payload, payload_size);
 			break;
+		case CTRL_MESSAGE_TYPE_PS:
+			CHIAKI_LOGW(ctrl->session->log, "PS button pressed");
+			break;;
       default:
+	  		// 0x41 - hdr?
 			CHIAKI_LOGW(ctrl->session->log, "Received Ctrl Message with unknown type %#x", msg_type);
 			chiaki_log_hexdump(ctrl->session->log, CHIAKI_LOG_WARNING, payload, payload_size);
 			break;

@@ -80,7 +80,7 @@ CHIAKI_EXPORT int chiaki_launchspec_format(char *buf, size_t buf_size, ChiakiLau
 			: "\"videoCodec\":\"avc\",";
 		extras[2] = chiaki_codec_is_hdr(launch_spec->codec)
 			? "\"dynamicRange\":\"HDR\","
-			: "\"dynamicRange\":\"SDR\",";
+			: "\"dynamicRange\":\"HDR\",";
 	}
 	else
 		extras[0] = extras[1] = extras[2] = "";
